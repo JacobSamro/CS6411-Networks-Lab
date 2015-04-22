@@ -1,38 +1,24 @@
 import java.io.*;
 import java.util.*;
+import java.lang.*;
 /**
  *
  * @author JSAM
  */
 public class JavaPing {
 
-    public static void main(String[] args) throws IOException{
-        // TODO code application logic here
-        JavaPing ping= new JavaPing();
-        List <String> Commands = new ArrayList <String>();
-        Commands.add("ping");
-        Commands.add("-n");
-        Commands.add("10");
-        Commands.add("10.0.3.0");
-        ping.doCommand(Commands);        
-    }
-    public void doCommand(List <String> Command) throws IOException{
-        String s = null;
-        ProcessBuilder pb = new ProcessBuilder(Command);
-        Process process = pb.start();
-        BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-        
-        
-       System.out.println("Standard Output:\n");
-       while((s=stdInput.readLine())!=null)
-       {
-       System.out.println(s);
-       }
-       while((s =stdError.readLine())!=null){
-       System.out.println(s);
-       }
-        
-        
+    public static void main(String[] args){
+        try{
+        Runtime runt    =   Runtime.getRuntime();
+        Process proc    =   r.exec("ping 127.0.0.1");
+        DataInputStream data    =   new DataInputStream(r.getInputStream());
+        String line =   null;
+        while((line=data.readLine())!=null)
+        {
+            System.out.println(line);
+        }
+        }catch(Exception e){
+            System.out.println(e.toString());
+        }
     }
 }
